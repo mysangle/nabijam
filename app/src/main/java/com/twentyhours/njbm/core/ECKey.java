@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.twentyhours.nabijam.core;
+package com.twentyhours.njbm.core;
 
 import com.twentyhours.nabijam.crypto.LazyECPoint;
 import com.twentyhours.nabijam.crypto.LinuxSecureRandom;
@@ -133,5 +133,9 @@ public class ECKey {
     if (pubKeyHash == null)
       pubKeyHash = Utils.sha512hash160(this.pub.getEncoded());
     return pubKeyHash;
+  }
+
+  public byte[] getPubKeyEncoded() {
+    return pub.getEncoded();
   }
 }

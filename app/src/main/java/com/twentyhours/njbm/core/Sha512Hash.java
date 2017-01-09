@@ -1,9 +1,7 @@
-package com.twentyhours.nabijam.core;
+package com.twentyhours.njbm.core;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
-import static com.twentyhours.nabijam.core.Utils.checkArgument;
 
 /**
  * Created by soonhyung-imac on 9/2/16.
@@ -16,7 +14,7 @@ public class Sha512Hash {
   private final byte[] bytes;
 
   private Sha512Hash(byte[] rawHashBytes) {
-    checkArgument(rawHashBytes.length == LENGTH);
+    Utils.checkArgument(rawHashBytes.length == LENGTH);
     this.bytes = rawHashBytes;
   }
 
@@ -53,6 +51,44 @@ public class Sha512Hash {
     MessageDigest digest = newDigest();
     digest.update(input, offset, length);
     return digest.digest();
+  }
+
+  /**
+   * Calculates the SHA-256 hash of the given bytes,
+   * and then hashes the resulting hash again.
+   *
+   * @param input the bytes to hash
+   * @return the double-hash (in big-endian order)
+   */
+  public static byte[] hashTwice(byte[] input) {
+    return hashTwice(input, 0, input.length);
+  }
+
+  /**
+   * Calculates the SHA-256 hash of the given byte range,
+   * and then hashes the resulting hash again.
+   *
+   * @param input the array containing the bytes to hash
+   * @param offset the offset within the array of the bytes to hash
+   * @param length the number of bytes to hash
+   * @return the double-hash (in big-endian order)
+   */
+  public static byte[] hashTwice(byte[] input, int offset, int length) {
+    MessageDigest digest = newDigest();
+    digest.update(input, offset, length);
+    return digest.digest(digest.digest());
+  }
+
+  /**
+   * Calculates the hash of hash on the given byte ranges. This is equivalent to
+   * concatenating the two ranges and then passing the result to {@link #hashTwice(byte[])}.
+   */
+  public static byte[] hashTwice(byte[] input1, int offset1, int length1,
+                                 byte[] input2, int offset2, int length2) {
+    MessageDigest digest = newDigest();
+    digest.update(input1, offset1, length1);
+    digest.update(input2, offset2, length2);
+    return digest.digest(digest.digest());
   }
 
   /**

@@ -7,8 +7,8 @@ import android.support.v7.widget.Toolbar
 import android.widget.Button
 import com.twentyhours.nabijam.R
 import com.twentyhours.nabijam.adapter.AddressAdapter
-import com.twentyhours.nabijam.core.Address
 import com.twentyhours.nabijam.model.AddressItem
+import com.twentyhours.njbm.core.AddressGenerator
 import kotlinx.android.synthetic.main.activity_create_address.*
 
 class CreateAddressActivity : AppCompatActivity(), AddressAdapter.onViewSelectedListener {
@@ -36,8 +36,8 @@ class CreateAddressActivity : AppCompatActivity(), AddressAdapter.onViewSelected
     val generateButton = findViewById(R.id.generate) as Button
     generateButton.setOnClickListener { view ->
         if (!nickname.text.isEmpty()) {
-          val address = Address.create(nickname.text.toString())
-          (address_list.adapter as AddressAdapter).addAddress(AddressItem(address.nickname, address.address))
+          val address = AddressGenerator.generate()
+          (address_list.adapter as AddressAdapter).addAddress(AddressItem(nickname.text.toString(), address.toBase58()))
         }
     }
   }
