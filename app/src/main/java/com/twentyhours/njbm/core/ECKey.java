@@ -138,4 +138,27 @@ public class ECKey {
   public byte[] getPubKeyEncoded() {
     return pub.getEncoded();
   }
+
+  /**
+   * Returns a 32 byte array containing the private key.
+   * @throws com.twentyhours.njbm.core.ECKey.MissingPrivateKeyException if the private key bytes are missing/encrypted.
+   */
+  public byte[] getPrivKeyBytes() {
+    return Utils.bigIntegerToBytes(getPrivKey(), 32);
+  }
+
+  /**
+   * Gets the private key in the form of an integer field element. The public key is derived by performing EC
+   * point addition this number of times (i.e. point multiplying).
+   *
+   * @throws java.lang.IllegalStateException if the private key bytes are not available.
+   */
+  public BigInteger getPrivKey() {
+    if (priv == null)
+      throw new MissingPrivateKeyException();
+    return priv;
+  }
+
+  public static class MissingPrivateKeyException extends RuntimeException {
+  }
 }

@@ -20,21 +20,12 @@ public class Address {
     System.arraycopy(ripe, 0, addressBytes, length, ripe.length);
     length += ripe.length;
     byte[] sha512Hash = Sha512Hash.hashTwice(addressBytes, 0, addressBytes.length - 4);
-    byte[] checksum = getChecksum(sha512Hash);
+    byte[] checksum = Utils.checksum(sha512Hash);
     System.arraycopy(checksum, 0, addressBytes, length, 4);
   }
 
   public String toBase58() {
     return Base58.encode(addressBytes);
-  }
-
-  private byte[] getChecksum(byte[] sha512Hash) {
-    byte[] checksum = new byte[4];
-    checksum[0] = sha512Hash[0];
-    checksum[1] = sha512Hash[1];
-    checksum[2] = sha512Hash[2];
-    checksum[3] = sha512Hash[3];
-    return checksum;
   }
 
   private byte[] encodingVarInt(int integer) {

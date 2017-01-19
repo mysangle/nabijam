@@ -19,6 +19,7 @@ package com.twentyhours.njbm.core;
 
 import org.spongycastle.crypto.digests.RIPEMD160Digest;
 
+import java.math.BigInteger;
 import java.util.Date;
 
 /**
@@ -118,5 +119,34 @@ public class Utils {
     out[offset + 5] = (byte) (0xFF & (val >> 40));
     out[offset + 6] = (byte) (0xFF & (val >> 48));
     out[offset + 7] = (byte) (0xFF & (val >> 56));
+  }
+
+  /**
+   * The regular {@link java.math.BigInteger#toByteArray()} method isn't quite what we often need: it appends a
+   * leading zero to indicate that the number is positive and may need padding.
+   *
+   * @param b the integer to format into a byte array
+   * @param numBytes the desired size of the resulting byte array
+   * @return numBytes byte long array.
+   */
+  public static byte[] bigIntegerToBytes(BigInteger b, int numBytes) {
+    if (b == null) {
+      return null;
+    }
+    byte[] bytes = new byte[numBytes];
+    byte[] biBytes = b.toByteArray();
+    int start = (biBytes.length == numBytes + 1) ? 1 : 0;
+    int length = Math.min(biBytes.length, numBytes);
+    System.arraycopy(biBytes, start, bytes, numBytes - length, length);
+    return bytes;
+  }
+
+  public static byte[] checksum(byte[] bytes) {
+    byte[] checksum = new byte[4];
+    checksum[0] = bytes[0];
+    checksum[1] = bytes[1];
+    checksum[2] = bytes[2];
+    checksum[3] = bytes[3];
+    return checksum;
   }
 }
