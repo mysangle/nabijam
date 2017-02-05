@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.Toolbar
+import android.view.MenuItem
 import android.widget.Button
 import com.twentyhours.nabijam.R
 import com.twentyhours.nabijam.adapter.AddressAdapter
@@ -46,5 +47,20 @@ class CreateAddressActivity : AppCompatActivity(), AddressAdapter.onViewSelected
     if (address_list.adapter == null) {
       address_list.adapter = AddressAdapter(this)
     }
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    when (item?.itemId) {
+      android.R.id.home -> {
+        finish()
+        return true
+      }
+    }
+    return super.onOptionsItemSelected(item)
+  }
+
+  override fun finish() {
+    super.finish()
+    overridePendingTransition(R.anim.scale_up, R.anim.slide_out_right)
   }
 }
