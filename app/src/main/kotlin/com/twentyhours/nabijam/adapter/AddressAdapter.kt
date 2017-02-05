@@ -50,7 +50,7 @@ class AddressAdapter(val listener: AddressAdapter.onViewSelectedListener) : Recy
 
   inner class AddressViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(parent.inflate(R.layout.address_item)) {
     fun bind(item: AddressItem, position: Int) = with(itemView) {
-      nickname.text = item.nickname
+      nickname.text = item.label
       address.text = item.address
 
       super.itemView.setOnLongClickListener { listener.onItemSelected(item, position) }

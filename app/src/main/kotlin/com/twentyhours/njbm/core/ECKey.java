@@ -39,7 +39,6 @@ import java.math.BigInteger;
 import java.security.SecureRandom;
 
 import static com.twentyhours.njbm.core.Utils.checkArgument;
-import static dagger.internal.Preconditions.checkNotNull;
 
 /**
  * <p>Represents an elliptic curve public and (optionally) private key, usable for digital signatures but not encryption.
@@ -144,7 +143,7 @@ public class ECKey {
       checkArgument(!priv.equals(BigInteger.ONE));
     }
     this.priv = priv;
-    this.pub = new LazyECPoint(checkNotNull(pub));
+    this.pub = new LazyECPoint(Utils.checkNotNull(pub));
   }
 
   /** Gets the hash160 form of the public key (as seen in addresses). */

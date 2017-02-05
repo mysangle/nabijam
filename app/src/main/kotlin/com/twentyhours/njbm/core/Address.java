@@ -7,6 +7,9 @@ package com.twentyhours.njbm.core;
 public class Address {
   private byte[] addressBytes;
 
+  private ECKey signingKey;
+  private ECKey encryptionKey;
+
   public Address(int addressVersionNumber, int streamNumber, byte[] ripe) {
     // version number + stream number + ripe + checksum
     byte[] encodedVersionNumber = encodingVarInt(addressVersionNumber);
@@ -24,8 +27,24 @@ public class Address {
     System.arraycopy(checksum, 0, addressBytes, length, 4);
   }
 
+  public String getPrivSigningKey() {
+    return AddressGenerator.encodeToWIF(signingKey.getPrivKeyBytes());
+  }
+
+  public String getPrivEncryptionKey() {
+    return AddressGenerator.encodeToWIF(encryptionKey.getPrivKeyBytes());
+  }
+
+  public void setSigningKey(ECKey signingKey) {
+    this.signingKey = signingKey;
+  }
+
+  public void setEncryptionKey(ECKey encryptionKey) {
+    this.encryptionKey = encryptionKey;
+  }
+
   public String toBase58() {
-    return Base58.encode(addressBytes);
+    return "NJ-" + Base58.encode(addressBytes);
   }
 
   private byte[] encodingVarInt(int integer) {

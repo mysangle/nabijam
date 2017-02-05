@@ -18,12 +18,12 @@ package com.twentyhours.nabijam.crypto;
 
 import android.support.annotation.Nullable;
 
+import com.twentyhours.njbm.core.Utils;
+
 import org.spongycastle.math.ec.ECCurve;
 import org.spongycastle.math.ec.ECPoint;
 
 import java.util.Arrays;
-
-import static dagger.internal.Preconditions.checkNotNull;
 
 /**
  * A wrapper around ECPoint that delays decoding of the point for as long as possible. This is useful because point
@@ -47,7 +47,7 @@ public class LazyECPoint {
   }
 
   public LazyECPoint(ECPoint point) {
-    this.point = checkNotNull(point);
+    this.point = Utils.checkNotNull(point);
     this.curve = null;
     this.bits = null;
   }

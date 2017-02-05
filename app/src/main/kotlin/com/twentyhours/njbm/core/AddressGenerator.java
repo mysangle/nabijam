@@ -22,19 +22,16 @@ public class AddressGenerator {
       System.arraycopy(signingPubKey, 0, combined, 0, signingPubKey.length);
       System.arraycopy(encryptionPubKey, 0, combined, signingPubKey.length, encryptionPubKey.length);
       ripe = Utils.sha512hash160(combined);
-      System.out.println("ripe=" + Utils.bytesToHex(ripe));
     } while (ripe[0] != 0x00);
-
-    byte[] privSigningKeyBytes = signingKey.getPrivKeyBytes();
-    byte[] privEncryptionKeyBytes = encryptionKey.getPrivKeyBytes();
-    byte[] privateKey = new byte[privSigningKeyBytes.length + privEncryptionKeyBytes.length];
-    System.arraycopy(privSigningKeyBytes, 0, privateKey, 0, privSigningKeyBytes.length);
-    System.arraycopy(privEncryptionKeyBytes, 0, privateKey, privSigningKeyBytes.length, privEncryptionKeyBytes.length);
-    String wif = encodeToWIF(privateKey);
 
     byte[] strip = new byte[ripe.length - 1]; // strip '0x00' from ripe
     System.arraycopy(ripe, 1, strip, 0, ripe.length - 1);
-    return new Address(4, 1, strip);
+
+    Address address = new Address(4, 1, strip);
+    address.setSigningKey(signingKey);
+    address.setEncryptionKey(encryptionKey);
+
+    return address;
   }
 
   /**

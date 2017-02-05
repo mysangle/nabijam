@@ -83,6 +83,13 @@ public class Utils {
     }
   }
 
+  public static <T> T checkNotNull(T object) {
+    if (object == null) {
+      throw new NullPointerException();
+    }
+    return object;
+  }
+
   /** Parse 4 bytes from the byte array (starting at the offset) as unsigned 32-bit integer in little endian format. */
   public static long readUint32(byte[] bytes, int offset) {
     return (bytes[offset] & 0xffl) |
