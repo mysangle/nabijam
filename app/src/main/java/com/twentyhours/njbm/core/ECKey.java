@@ -18,6 +18,8 @@
 
 package com.twentyhours.njbm.core;
 
+import android.support.annotation.Nullable;
+
 import com.twentyhours.nabijam.crypto.LazyECPoint;
 import com.twentyhours.nabijam.crypto.LinuxSecureRandom;
 
@@ -29,10 +31,15 @@ import org.spongycastle.crypto.params.ECDomainParameters;
 import org.spongycastle.crypto.params.ECKeyGenerationParameters;
 import org.spongycastle.crypto.params.ECPrivateKeyParameters;
 import org.spongycastle.crypto.params.ECPublicKeyParameters;
+import org.spongycastle.math.ec.ECPoint;
+import org.spongycastle.math.ec.FixedPointCombMultiplier;
 import org.spongycastle.math.ec.FixedPointUtil;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
+
+import static com.twentyhours.njbm.core.Utils.checkArgument;
+import static dagger.internal.Preconditions.checkNotNull;
 
 /**
  * <p>Represents an elliptic curve public and (optionally) private key, usable for digital signatures but not encryption.
@@ -128,6 +135,18 @@ public class ECKey {
     creationTimeSeconds = Utils.currentTimeSeconds();
   }
 
+  protected ECKey(@Nullable BigInteger priv, ECPoint pub) {
+    if (priv != null) {
+      // Try and catch buggy callers or bad key imports, etc. Zero and one are special because these are often
+      // used as sentinel values and because scripting languages have a habit of auto-casting true and false to
+      // 1 and 0 or vice-versa. Type confusion bugs could therefore result in private keys with these values.
+      checkArgument(!priv.equals(BigInteger.ZERO));
+      checkArgument(!priv.equals(BigInteger.ONE));
+    }
+    this.priv = priv;
+    this.pub = new LazyECPoint(checkNotNull(pub));
+  }
+
   /** Gets the hash160 form of the public key (as seen in addresses). */
   public byte[] getPubKeyHash() {
     if (pubKeyHash == null)
@@ -157,6 +176,55 @@ public class ECKey {
     if (priv == null)
       throw new MissingPrivateKeyException();
     return priv;
+  }
+
+  /**
+   * Creates an ECKey given the private key only. The public key is calculated from it (this is slow). The resulting
+   * public key is compressed.
+   */
+  public static ECKey fromPrivate(byte[] privKeyBytes) {
+    return fromPrivate(new BigInteger(1, privKeyBytes));
+  }
+
+  /**
+   * Creates an ECKey given the private key only. The public key is calculated from it (this is slow). The resulting
+   * public key is compressed.
+   */
+  public static ECKey fromPrivate(BigInteger privKey) {
+    return fromPrivate(privKey, true);
+  }
+
+  /**
+   * Creates an ECKey given the private key only. The public key is calculated from it (this is slow), either
+   * compressed or not.
+   */
+  public static ECKey fromPrivate(BigInteger privKey, boolean compressed) {
+    ECPoint point = publicPointFromPrivate(privKey);
+    return new ECKey(privKey, getPointWithCompression(point, compressed));
+  }
+
+  /**
+   * Returns public key point from the given private key. To convert a byte array into a BigInteger, use <tt>
+   * new BigInteger(1, bytes);</tt>
+   */
+  public static ECPoint publicPointFromPrivate(BigInteger privKey) {
+        /*
+         * TODO: FixedPointCombMultiplier currently doesn't support scalars longer than the group order,
+         * but that could change in future versions.
+         */
+    if (privKey.bitLength() > CURVE.getN().bitLength()) {
+      privKey = privKey.mod(CURVE.getN());
+    }
+    return new FixedPointCombMultiplier().multiply(CURVE.getG(), privKey);
+  }
+
+  private static ECPoint getPointWithCompression(ECPoint point, boolean compressed) {
+    if (point.isCompressed() == compressed)
+      return point;
+    point = point.normalize();
+    BigInteger x = point.getAffineXCoord().toBigInteger();
+    BigInteger y = point.getAffineYCoord().toBigInteger();
+    return CURVE.getCurve().createPoint(x, y, compressed);
   }
 
   public static class MissingPrivateKeyException extends RuntimeException {
