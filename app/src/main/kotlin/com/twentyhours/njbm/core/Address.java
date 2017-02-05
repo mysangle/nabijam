@@ -28,11 +28,11 @@ public class Address {
   }
 
   public String getPrivSigningKey() {
-    return AddressGenerator.encodeToWIF(signingKey.getPrivKeyBytes());
+    return WalletImportFormat.encodeToWIF(signingKey.getPrivKeyBytes());
   }
 
   public String getPrivEncryptionKey() {
-    return AddressGenerator.encodeToWIF(encryptionKey.getPrivKeyBytes());
+    return WalletImportFormat.encodeToWIF(encryptionKey.getPrivKeyBytes());
   }
 
   public void setSigningKey(ECKey signingKey) {

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.twentyhours.njbm.core;
+package com.twentyhours.njbm.exception;
 
 @SuppressWarnings("serial")
 public class AddressFormatException extends IllegalArgumentException {

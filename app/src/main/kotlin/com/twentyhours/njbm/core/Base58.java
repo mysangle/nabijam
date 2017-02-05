@@ -16,6 +16,8 @@
 
 package com.twentyhours.njbm.core;
 
+import com.twentyhours.njbm.exception.AddressFormatException;
+
 import java.math.BigInteger;
 import java.util.Arrays;
 
