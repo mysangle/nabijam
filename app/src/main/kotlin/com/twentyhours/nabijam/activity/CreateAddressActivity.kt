@@ -1,39 +1,44 @@
 package com.twentyhours.nabijam.activity
 
+import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.Toolbar
 import android.view.MenuItem
-import android.widget.Button
 import com.twentyhours.nabijam.R
 import com.twentyhours.nabijam.adapter.AddressAdapter
+import com.twentyhours.nabijam.databinding.ActivityCreateAddressBinding
 import com.twentyhours.nabijam.model.AddressItem
-import com.twentyhours.njbm.core.AddressGenerator
-import kotlinx.android.synthetic.main.activity_create_address.*
-
-import io.realm.Realm;
+import com.twentyhours.nabijam.navigator.CreateAddressNavigator
+import com.twentyhours.nabijam.viewmodel.CreateAddressViewModel
+import io.realm.Realm
 import io.realm.exceptions.RealmPrimaryKeyConstraintException
+import kotlinx.android.synthetic.main.activity_create_address.*
 import kotlin.properties.Delegates
 
 
-class CreateAddressActivity : AppCompatActivity(), AddressAdapter.onViewSelectedListener {
+class CreateAddressActivity : AppCompatActivity(), CreateAddressNavigator {
   private var realm: Realm by Delegates.notNull()
 
-  override fun onItemSelected(address: AddressItem?, position: Int): Boolean {
-    return true
+  override fun addNewAddress(newItem: AddressItem) {
+    (address_list.adapter as AddressAdapter).addAddress(newItem)
+    address_list.layoutManager.scrollToPosition(0)
+    storeAddress(newItem)
   }
+
+  lateinit var viewModel: CreateAddressViewModel
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_create_address)
+    val binding: ActivityCreateAddressBinding =
+        DataBindingUtil.setContentView(this, R.layout.activity_create_address)
+
+    viewModel = CreateAddressViewModel(this)
+    binding.viewModel = viewModel
 
     realm = Realm.getDefaultInstance()
 
-    val toolbar = findViewById(R.id.toolbar) as Toolbar
-    setSupportActionBar(toolbar)
-    supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    supportActionBar?.setTitle(R.string.address)
+    setupActionBar()
 
     address_list.apply {
       setHasFixedSize(true)
@@ -43,27 +48,19 @@ class CreateAddressActivity : AppCompatActivity(), AddressAdapter.onViewSelected
 
     initAdapter()
 
-    // fetch addresses from db
     val addressItems = realm.where(AddressItem::class.java).findAllSorted("label")
     (address_list.adapter as AddressAdapter).addAddresses(addressItems)
+  }
 
-    val generateButton = findViewById(R.id.generate) as Button
-    generateButton.setOnClickListener { view ->
-        if (!nickname.text.isEmpty()) {
-          // create new address
-          val address = AddressGenerator.generate()
-          val item = AddressItem(nickname.text.toString(), address.toBase58(), address.privSigningKey, address.privEncryptionKey)
-
-          (address_list.adapter as AddressAdapter).addAddress(item)
-          
-          storeAddress(item)
-        }
-    }
+  private fun setupActionBar() {
+    setSupportActionBar(toolbar)
+    supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    supportActionBar?.setTitle(R.string.address)
   }
 
   private fun initAdapter() {
     if (address_list.adapter == null) {
-      address_list.adapter = AddressAdapter(this)
+      address_list.adapter = AddressAdapter()
     }
   }
 

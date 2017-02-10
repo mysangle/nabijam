@@ -2,16 +2,16 @@ package com.twentyhours.nabijam.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
-import com.twentyhours.nabijam.R
-import com.twentyhours.nabijam.extension.inflate
+import android.view.LayoutInflater
+import com.twentyhours.nabijam.databinding.AddressItemBinding
 import com.twentyhours.nabijam.model.AddressItem
-import kotlinx.android.synthetic.main.address_item.view.*
+import com.twentyhours.nabijam.viewmodel.AddressItemViewModel
 import java.util.*
 
 /**
  * Created by soonhyung on 12/31/16.
  */
-class AddressAdapter(val listener: AddressAdapter.onViewSelectedListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class AddressAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
   private var items: ArrayList<AddressItem> = ArrayList()
 
   interface onViewSelectedListener {
@@ -19,7 +19,7 @@ class AddressAdapter(val listener: AddressAdapter.onViewSelectedListener) : Recy
   }
 
   override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-    (holder as AddressViewHolder).bind(items[position], position)
+    (holder as AddressViewHolder).bind(items[position])
   }
 
   override fun getItemCount(): Int {
@@ -27,7 +27,9 @@ class AddressAdapter(val listener: AddressAdapter.onViewSelectedListener) : Recy
   }
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-    return AddressViewHolder(parent)
+    val layoutInflater = LayoutInflater.from(parent.context)
+    val itemBinding = AddressItemBinding.inflate(layoutInflater, parent, false)
+    return AddressViewHolder(itemBinding)
   }
 
   fun addAddresses(addresses: List<AddressItem>) {
@@ -38,8 +40,8 @@ class AddressAdapter(val listener: AddressAdapter.onViewSelectedListener) : Recy
 
   fun addAddress(address: AddressItem) {
     if (!items.contains(address)) {
-      items.add(address)
-      notifyItemInserted(items.size - 1)
+      items.add(0, address)
+      notifyItemInserted(0)
     }
   }
 
@@ -48,12 +50,13 @@ class AddressAdapter(val listener: AddressAdapter.onViewSelectedListener) : Recy
     notifyItemRangeRemoved(position, 1)
   }
 
-  inner class AddressViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(parent.inflate(R.layout.address_item)) {
-    fun bind(item: AddressItem, position: Int) = with(itemView) {
-      nickname.text = item.label
-      address.text = item.address
-
-      super.itemView.setOnLongClickListener { listener.onItemSelected(item, position) }
+  inner class AddressViewHolder(val binding: AddressItemBinding)
+      : RecyclerView.ViewHolder(binding.root) {
+    fun bind(item: AddressItem) {
+      val viewModel = AddressItemViewModel(item)
+      binding.viewModel = viewModel
+      binding.root.setOnClickListener { viewModel.onItemSelected() }
+      binding.executePendingBindings()
     }
   }
 }
