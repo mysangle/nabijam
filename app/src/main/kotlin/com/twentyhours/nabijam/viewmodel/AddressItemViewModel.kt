@@ -1,5 +1,6 @@
 package com.twentyhours.nabijam.viewmodel
 
+import android.view.View
 import com.twentyhours.nabijam.model.AddressItem
 
 /**
@@ -14,7 +15,8 @@ class AddressItemViewModel(var item: AddressItem) {
     return item.address
   }
 
-  fun onItemSelected() {
-
+  fun onItemSelected(item: AddressItem) {
+    val label = item.label
+    val address = item.address
   }
 }

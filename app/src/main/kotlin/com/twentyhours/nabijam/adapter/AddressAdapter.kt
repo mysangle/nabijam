@@ -55,7 +55,6 @@ class AddressAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     fun bind(item: AddressItem) {
       val viewModel = AddressItemViewModel(item)
       binding.viewModel = viewModel
-      binding.root.setOnClickListener { viewModel.onItemSelected() }
       binding.executePendingBindings()
     }
   }

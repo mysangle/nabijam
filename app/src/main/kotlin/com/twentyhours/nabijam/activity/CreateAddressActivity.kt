@@ -8,6 +8,7 @@ import android.view.MenuItem
 import com.twentyhours.nabijam.R
 import com.twentyhours.nabijam.adapter.AddressAdapter
 import com.twentyhours.nabijam.databinding.ActivityCreateAddressBinding
+import com.twentyhours.nabijam.extension.hideKeyboard
 import com.twentyhours.nabijam.model.AddressItem
 import com.twentyhours.nabijam.navigator.CreateAddressNavigator
 import com.twentyhours.nabijam.viewmodel.CreateAddressViewModel
@@ -21,6 +22,8 @@ class CreateAddressActivity : AppCompatActivity(), CreateAddressNavigator {
   private var realm: Realm by Delegates.notNull()
 
   override fun addNewAddress(newItem: AddressItem) {
+    hideKeyboard()
+
     (address_list.adapter as AddressAdapter).addAddress(newItem)
     address_list.layoutManager.scrollToPosition(0)
     storeAddress(newItem)
