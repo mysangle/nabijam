@@ -12,10 +12,10 @@ import java.util.*
  * Created by soonhyung on 12/31/16.
  */
 class AddressAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-  private var items: ArrayList<AddressItem> = ArrayList()
+  private var items: List<AddressItem> = ArrayList()
 
   interface onViewSelectedListener {
-    fun onItemSelected(address: AddressItem?, position: Int): Boolean
+    fun onItemSelected(address: AddressItem, position: Int): Boolean
   }
 
   override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -23,7 +23,7 @@ class AddressAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
   }
 
   override fun getItemCount(): Int {
-    return items.size
+    return items.count()
   }
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -32,22 +32,13 @@ class AddressAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     return AddressViewHolder(itemBinding)
   }
 
-  fun addAddresses(addresses: List<AddressItem>) {
-    // TODO: need to check duplication?
-    items.addAll(addresses);
-    notifyItemRangeChanged(0, items.size)
+  fun replaceData(items: List<AddressItem>) {
+    setList(items)
   }
 
-  fun addAddress(address: AddressItem) {
-    if (!items.contains(address)) {
-      items.add(0, address)
-      notifyItemInserted(0)
-    }
-  }
-
-  fun removeAddressAt(position: Int) {
-    items.removeAt(position)
-    notifyItemRangeRemoved(position, 1)
+  private fun setList(items: List<AddressItem>) {
+    this.items = items
+    notifyDataSetChanged()
   }
 
   inner class AddressViewHolder(val binding: AddressItemBinding)

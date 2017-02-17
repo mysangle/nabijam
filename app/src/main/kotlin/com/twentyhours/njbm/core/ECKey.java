@@ -20,8 +20,8 @@ package com.twentyhours.njbm.core;
 
 import android.support.annotation.Nullable;
 
-import com.twentyhours.nabijam.crypto.LazyECPoint;
-import com.twentyhours.nabijam.crypto.LinuxSecureRandom;
+import com.twentyhours.njbm.crypto.LazyECPoint;
+import com.twentyhours.njbm.crypto.LinuxSecureRandom;
 
 import org.spongycastle.asn1.x9.X9ECParameters;
 import org.spongycastle.crypto.AsymmetricCipherKeyPair;

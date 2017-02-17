@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
   }
 
   fun showCreateAddressActivity() {
-    startActivity(Intent(this, CreateAddressActivity::class.java))
+    startActivity(Intent(this, AddressActivity::class.java))
     overridePendingTransition(R.anim.slide_in_right, R.anim.scale_down)
   }
 

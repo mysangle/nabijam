@@ -12,6 +12,10 @@ import com.twentyhours.nabijam.R
  * Created by soonhyung on 2/5/17.
  */
 class ChatsFragment : Fragment() {
+  fun newInstance(): ChatsFragment {
+    return ChatsFragment()
+  }
+
   override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
     return inflater?.inflate(R.layout.content_main, container, false)
   }

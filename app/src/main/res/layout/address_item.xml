@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
+
     <data>
         <variable name="viewModel" type="com.twentyhours.nabijam.viewmodel.AddressItemViewModel"/>
     </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,7 +18,7 @@
             android:layout_height="wrap_content"
             android:maxLines="1"
             android:text="@{viewModel.label}"
-            android:textColor="@color/dim_gray"
+            android:textColor="@color/gray6"
             android:textSize="@dimen/font_tall"/>
 
         <TextView
@@ -29,4 +31,5 @@
             android:textSize="@dimen/font_tall"/>
 
     </LinearLayout>
+
 </layout>

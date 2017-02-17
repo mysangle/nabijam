@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.twentyhours.nabijam.crypto;
+package com.twentyhours.njbm.crypto;
 
 import java.io.DataInputStream;
 import java.io.File;

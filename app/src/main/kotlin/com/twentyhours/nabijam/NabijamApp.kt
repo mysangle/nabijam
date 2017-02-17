@@ -7,8 +7,6 @@ import io.realm.Realm
 import io.realm.RealmConfiguration
 import timber.log.Timber
 
-
-
 /**
  * Created by soonhyung on 12/30/16.
  */

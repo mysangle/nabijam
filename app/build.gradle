@@ -68,6 +68,7 @@ dependencies {
     provided 'org.glassfish:javax.annotation:10.0-b28'
 
     compile 'io.reactivex:rxkotlin:0.60.0' // Rx for Kotlin
+    compile 'io.netty:netty-all:4.0.24.Final'
 
     compile 'com.jakewharton.timber:timber:4.4.0'
 

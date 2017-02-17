@@ -5,11 +5,16 @@
     <color name="colorAccent">#FF4081</color>
 
     <!-- grayscale -->
-    <color name="silver">#c0c0c0</color>
-    <color name="light_gray">#d3d3d3</color>
-    <color name="dark_gray">#a9a9a9</color>
-    <color name="gray">#808080</color>
-    <color name="dim_gray">#696969</color>
+    <color name="gray0">#f8f9fa</color>
+    <color name="gray1">#f1f3f5</color>
+    <color name="gray2">#e9ecef</color>
+    <color name="gray3">#dee2e6</color>
+    <color name="gray4">#ced4da</color>
+    <color name="gray5">#adb5bd</color>
+    <color name="gray6">#868e96</color>
+    <color name="gray7">#495057</color>
+    <color name="gray8">#343a40</color>
+    <color name="gray9">#212529</color>
 
     <!-- basic colors -->
     <color name="transparent">#00000000</color>
