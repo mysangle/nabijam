@@ -31,6 +31,10 @@ class AddressViewModel(val repository: AddressRepository, val navigator: Address
     items.addAll(addressItems)
   }
 
+  fun deleteAddress(label: String) {
+    repository.deleteAddress(label)
+  }
+
   fun onGenerateButtonClicked() {
     val input = label.get()
     for (item in items) {

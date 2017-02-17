@@ -77,10 +77,10 @@ class AddressActivity : AppCompatActivity(), AddressNavigator, AddressItemNaviga
     val builder = AlertDialog.Builder(this)
     builder.setMessage(String.format(getString(R.string.delete_address), label))
         .setPositiveButton(R.string.delete) { dialog, whichButton ->
-          repository.deleteAddress(label)
+          viewModel.deleteAddress(label)
           viewModel.refresh()
         }
-        .setNegativeButton(R.string.cancel) { dialogInterface, i ->
+        .setNegativeButton(R.string.cancel) { dialog, whichButton ->
 
         }
     builder.create().show()
