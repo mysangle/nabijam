@@ -35,4 +35,11 @@ class AddressRepository() {
       // realm.copyToRealmOrUpdate(addressItem)
     }
   }
+
+  fun deleteAddress(label: String) {
+    realm.executeTransaction { realm ->
+      val result = realm.where(AddressItem::class.java).equalTo("label", label).findAll()
+      result.deleteAllFromRealm()
+    }
+  }
 }

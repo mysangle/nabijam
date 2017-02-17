@@ -16,9 +16,13 @@
         completions."
     </string>
 
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+
     <!-- AddressActivity -->
     <string name="address">Address</string>
-    <string name="generated_address">Your address is generated automatically.</string>
+    <string name="generated_address">Your address is generated.</string>
     <string name="label_for_address">Label for address</string>
     <string name="generate">Generate</string>
+    <string name="delete_address">Do you really want to delete \'%1$s\'?</string>
 </resources>

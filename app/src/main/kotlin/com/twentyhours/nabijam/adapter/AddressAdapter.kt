@@ -5,13 +5,16 @@ import android.view.ViewGroup
 import android.view.LayoutInflater
 import com.twentyhours.nabijam.databinding.AddressItemBinding
 import com.twentyhours.nabijam.model.AddressItem
+import com.twentyhours.nabijam.navigator.AddressItemNavigator
+import com.twentyhours.nabijam.repository.AddressRepository
 import com.twentyhours.nabijam.viewmodel.AddressItemViewModel
 import java.util.*
 
 /**
  * Created by soonhyung on 12/31/16.
  */
-class AddressAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class AddressAdapter(val repository: AddressRepository, val navigator: AddressItemNavigator)
+    : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
   private var items: List<AddressItem> = ArrayList()
 
   interface onViewSelectedListener {
@@ -44,7 +47,8 @@ class AddressAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
   inner class AddressViewHolder(val binding: AddressItemBinding)
       : RecyclerView.ViewHolder(binding.root) {
     fun bind(item: AddressItem) {
-      val viewModel = AddressItemViewModel(item)
+      val viewModel = AddressItemViewModel(repository, navigator)
+      viewModel.setAddress(item)
       binding.viewModel = viewModel
       binding.executePendingBindings()
     }

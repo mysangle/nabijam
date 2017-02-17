@@ -18,7 +18,16 @@ class AddressViewModel(val repository: AddressRepository, val navigator: Address
   val items: ObservableList<AddressItem> = ObservableArrayList()
 
   fun start() {
+    loadAddresses()
+  }
+
+  fun refresh() {
+    loadAddresses()
+  }
+
+  private fun loadAddresses() {
     val addressItems = repository.getAddresses()
+    items.clear()
     items.addAll(addressItems)
   }
 

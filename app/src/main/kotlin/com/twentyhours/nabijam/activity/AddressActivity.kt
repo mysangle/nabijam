@@ -1,5 +1,6 @@
 package com.twentyhours.nabijam.activity
 
+import android.app.AlertDialog
 import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -8,22 +9,24 @@ import com.twentyhours.nabijam.R
 import com.twentyhours.nabijam.adapter.AddressAdapter
 import com.twentyhours.nabijam.databinding.ActivityAddressBinding
 import com.twentyhours.nabijam.extension.hideKeyboard
+import com.twentyhours.nabijam.navigator.AddressItemNavigator
 import com.twentyhours.nabijam.navigator.AddressNavigator
 import com.twentyhours.nabijam.repository.AddressRepository
 import com.twentyhours.nabijam.viewmodel.AddressViewModel
 import kotlinx.android.synthetic.main.activity_address.*
 
 
-class AddressActivity : AppCompatActivity(), AddressNavigator {
+class AddressActivity : AppCompatActivity(), AddressNavigator, AddressItemNavigator {
   lateinit var viewModel: AddressViewModel
+  lateinit var repository: AddressRepository
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     val binding: ActivityAddressBinding =
         DataBindingUtil.setContentView(this, R.layout.activity_address)
 
-    val addressRepo = AddressRepository()
-    viewModel = AddressViewModel(addressRepo, this)
+    repository = AddressRepository()
+    viewModel = AddressViewModel(repository, this)
     binding.viewModel = viewModel
 
     setupActionBar()
@@ -47,7 +50,7 @@ class AddressActivity : AppCompatActivity(), AddressNavigator {
 
   private fun initAdapter() {
     if (address_list.adapter == null) {
-      address_list.adapter = AddressAdapter()
+      address_list.adapter = AddressAdapter(repository, this)
     }
   }
 
@@ -65,5 +68,21 @@ class AddressActivity : AppCompatActivity(), AddressNavigator {
     hideKeyboard()
 
     address_list.layoutManager.scrollToPosition(0)
+  }
+
+  override fun onAddressSelected() {
+  }
+
+  override fun onDeleteClicked(label: String) {
+    val builder = AlertDialog.Builder(this)
+    builder.setMessage(String.format(getString(R.string.delete_address), label))
+        .setPositiveButton(R.string.delete) { dialog, whichButton ->
+          repository.deleteAddress(label)
+          viewModel.refresh()
+        }
+        .setNegativeButton(R.string.cancel) { dialogInterface, i ->
+
+        }
+    builder.create().show()
   }
 }

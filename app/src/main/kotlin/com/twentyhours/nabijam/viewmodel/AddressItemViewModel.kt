@@ -1,22 +1,34 @@
 package com.twentyhours.nabijam.viewmodel
 
-import android.view.View
 import com.twentyhours.nabijam.model.AddressItem
+import com.twentyhours.nabijam.navigator.AddressItemNavigator
+import com.twentyhours.nabijam.repository.AddressRepository
 
 /**
  * Created by soonhyung on 2/10/17.
  */
-class AddressItemViewModel(var item: AddressItem) {
+class AddressItemViewModel(val repository: AddressRepository, val navigator: AddressItemNavigator) {
+  private var item: AddressItem? = null
+
+  fun setAddress(item: AddressItem?) {
+    this.item = item
+  }
+
+  fun onAddressSelected() {
+    navigator.onAddressSelected()
+  }
+
+  fun onDeleteClicked() {
+    item?.let {
+      navigator.onDeleteClicked(it.label)
+    }
+  }
+
   fun label(): String {
-    return item.label
+    return item?.label ?: ""
   }
 
   fun address(): String {
-    return item.address
-  }
-
-  fun onItemSelected(item: AddressItem) {
-    val label = item.label
-    val address = item.address
+    return item?.address ?: ""
   }
 }

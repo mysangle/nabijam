@@ -5,15 +5,15 @@
         <variable name="viewModel" type="com.twentyhours.nabijam.viewmodel.AddressItemViewModel"/>
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/space_normal"
-        android:onClick="@{() -> viewModel.onItemSelected(viewModel.item)}"
+        android:onClick="@{() -> viewModel.onAddressSelected()}"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/nickname"
+            android:id="@+id/label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="1"
@@ -21,15 +21,26 @@
             android:textColor="@color/gray6"
             android:textSize="@dimen/font_tall"/>
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/space_normal"
+            android:layout_marginStart="@dimen/space_normal"
+            android:layout_toEndOf="@+id/label"
+            android:layout_toRightOf="@+id/label"
+            android:onClick="@{() -> viewModel.onDeleteClicked()}"
+            android:src="@drawable/ic_delete_forever_black_24dp"/>
+
         <TextView
             android:id="@+id/address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/label"
             android:layout_marginTop="@dimen/space_small"
             android:text="@{viewModel.address}"
             android:textColor="@color/black"
             android:textSize="@dimen/font_tall"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </layout>
