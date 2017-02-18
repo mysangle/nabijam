@@ -11,11 +11,14 @@ import com.twentyhours.nabijam.databinding.ActivityAddressBinding
 import com.twentyhours.nabijam.extension.hideKeyboard
 import com.twentyhours.nabijam.navigator.AddressItemNavigator
 import com.twentyhours.nabijam.navigator.AddressNavigator
+import com.twentyhours.nabijam.repository.AddressRealmRepository
 import com.twentyhours.nabijam.repository.AddressRepository
 import com.twentyhours.nabijam.viewmodel.AddressViewModel
 import kotlinx.android.synthetic.main.activity_address.*
 
-
+/**
+ * AddressActivity
+ */
 class AddressActivity : AppCompatActivity(), AddressNavigator, AddressItemNavigator {
   lateinit var viewModel: AddressViewModel
   lateinit var repository: AddressRepository
@@ -25,7 +28,7 @@ class AddressActivity : AppCompatActivity(), AddressNavigator, AddressItemNaviga
     val binding: ActivityAddressBinding =
         DataBindingUtil.setContentView(this, R.layout.activity_address)
 
-    repository = AddressRepository()
+    repository = AddressRealmRepository()
     viewModel = AddressViewModel(repository, this)
     binding.viewModel = viewModel
 

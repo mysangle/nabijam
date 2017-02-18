@@ -31,25 +31,32 @@ class AddressViewModel(val repository: AddressRepository, val navigator: Address
     items.addAll(addressItems)
   }
 
-  fun deleteAddress(label: String) {
-    repository.deleteAddress(label)
-  }
-
-  fun onGenerateButtonClicked() {
-    val input = label.get()
+  fun addNewAddress(label: String) {
+    if (label.isEmpty()) {
+      // empty label is not accepted
+      return
+    }
     for (item in items) {
-      if (item.label == input) {
+      if (item.label === label) {
         // address of the same label exists.
         return
       }
     }
 
-    // create new address
+    // create new random address
     val address = AddressGenerator.generate()
-    val item = AddressItem(input, address.toBase58(), address.privSigningKey, address.privEncryptionKey)
+    val item = AddressItem(label, address.toBase58(), address.privSigningKey, address.privEncryptionKey)
     items.add(0, item)
 
     repository.saveAddress(item)
     navigator.onNewAddressGenerated()
+  }
+
+  fun deleteAddress(label: String) {
+    repository.deleteAddress(label)
+  }
+
+  fun onGenerateButtonClicked() {
+    addNewAddress(label.get())
   }
 }
