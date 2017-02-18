@@ -13,7 +13,7 @@ import java.util.*
 /**
  * Created by soonhyung on 12/31/16.
  */
-class AddressAdapter(val repository: AddressRepository, val navigator: AddressItemNavigator)
+class AddressAdapter(val navigator: AddressItemNavigator)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
   private var items: List<AddressItem> = ArrayList()
 
@@ -47,7 +47,7 @@ class AddressAdapter(val repository: AddressRepository, val navigator: AddressIt
   inner class AddressViewHolder(val binding: AddressItemBinding)
       : RecyclerView.ViewHolder(binding.root) {
     fun bind(item: AddressItem) {
-      val viewModel = AddressItemViewModel(repository, navigator)
+      val viewModel = AddressItemViewModel(navigator)
       viewModel.setAddress(item)
       binding.viewModel = viewModel
       binding.executePendingBindings()

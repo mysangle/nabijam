@@ -7,7 +7,7 @@ import com.twentyhours.nabijam.repository.AddressRepository
 /**
  * Created by soonhyung on 2/10/17.
  */
-class AddressItemViewModel(val repository: AddressRepository, val navigator: AddressItemNavigator) {
+class AddressItemViewModel(val navigator: AddressItemNavigator) {
   private var item: AddressItem? = null
 
   fun setAddress(item: AddressItem?) {

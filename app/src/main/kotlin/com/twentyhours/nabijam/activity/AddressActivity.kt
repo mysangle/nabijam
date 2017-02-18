@@ -53,7 +53,7 @@ class AddressActivity : AppCompatActivity(), AddressNavigator, AddressItemNaviga
 
   private fun initAdapter() {
     if (address_list.adapter == null) {
-      address_list.adapter = AddressAdapter(repository, this)
+      address_list.adapter = AddressAdapter(this)
     }
   }
 
