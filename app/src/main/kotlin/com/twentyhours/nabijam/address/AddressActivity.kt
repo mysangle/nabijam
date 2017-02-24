@@ -1,4 +1,4 @@
-package com.twentyhours.nabijam.activity
+package com.twentyhours.nabijam.address
 
 import android.app.AlertDialog
 import android.databinding.DataBindingUtil
@@ -6,14 +6,14 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.twentyhours.nabijam.R
-import com.twentyhours.nabijam.adapter.AddressAdapter
+import com.twentyhours.nabijam.address.AddressAdapter
 import com.twentyhours.nabijam.databinding.ActivityAddressBinding
 import com.twentyhours.nabijam.extension.hideKeyboard
-import com.twentyhours.nabijam.navigator.AddressItemNavigator
-import com.twentyhours.nabijam.navigator.AddressNavigator
-import com.twentyhours.nabijam.repository.AddressRealmRepository
-import com.twentyhours.nabijam.repository.AddressRepository
-import com.twentyhours.nabijam.viewmodel.AddressViewModel
+import com.twentyhours.nabijam.address.AddressItemNavigator
+import com.twentyhours.nabijam.address.AddressNavigator
+import com.twentyhours.nabijam.data.AddressRealmRepository
+import com.twentyhours.nabijam.data.AddressRepository
+import com.twentyhours.nabijam.address.AddressViewModel
 import kotlinx.android.synthetic.main.activity_address.*
 
 /**

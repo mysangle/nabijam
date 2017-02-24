@@ -1,4 +1,4 @@
-package com.twentyhours.nabijam.navigator
+package com.twentyhours.nabijam.address
 
 /**
  * Created by soonhyung on 2/17/17.

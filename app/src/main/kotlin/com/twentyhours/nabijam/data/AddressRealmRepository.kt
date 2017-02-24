@@ -1,6 +1,7 @@
-package com.twentyhours.nabijam.repository
+package com.twentyhours.nabijam.data
 
-import com.twentyhours.nabijam.model.AddressItem
+import com.twentyhours.nabijam.data.AddressRepository
+import com.twentyhours.nabijam.data.AddressItem
 import io.realm.Realm
 import io.realm.exceptions.RealmPrimaryKeyConstraintException
 import java.util.*

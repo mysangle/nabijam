@@ -4,14 +4,14 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable name="viewModel" type="com.twentyhours.nabijam.viewmodel.AddressViewModel"/>
+        <variable name="viewModel" type="com.twentyhours.nabijam.address.AddressViewModel"/>
     </data>
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/activity_create_address"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.twentyhours.nabijam.activity.AddressActivity">
+        tools:context="com.twentyhours.nabijam.address.AddressActivity">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"

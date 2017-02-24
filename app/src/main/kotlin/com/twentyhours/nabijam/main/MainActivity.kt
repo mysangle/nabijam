@@ -1,4 +1,4 @@
-package com.twentyhours.nabijam.activity
+package com.twentyhours.nabijam.main
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,8 +11,7 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
 import android.view.*
-import com.twentyhours.nabijam.fragment.ChatsFragment
-import com.twentyhours.nabijam.fragment.FriendsFragment
+import com.twentyhours.nabijam.address.AddressActivity
 import java.util.*
 
 class MainActivity : AppCompatActivity() {

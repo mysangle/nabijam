@@ -1,13 +1,13 @@
-package com.twentyhours.nabijam.adapter
+package com.twentyhours.nabijam.address
 
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import com.twentyhours.nabijam.databinding.AddressItemBinding
-import com.twentyhours.nabijam.model.AddressItem
-import com.twentyhours.nabijam.navigator.AddressItemNavigator
-import com.twentyhours.nabijam.repository.AddressRepository
-import com.twentyhours.nabijam.viewmodel.AddressItemViewModel
+import com.twentyhours.nabijam.data.AddressItem
+import com.twentyhours.nabijam.address.AddressItemNavigator
+import com.twentyhours.nabijam.data.AddressRepository
+import com.twentyhours.nabijam.address.AddressItemViewModel
 import java.util.*
 
 /**

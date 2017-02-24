@@ -1,7 +1,8 @@
-package com.twentyhours.nabijam.viewmodel
+package com.twentyhours.nabijam.address
 
-import com.twentyhours.nabijam.model.AddressItem
-import com.twentyhours.nabijam.navigator.AddressItemNavigator
+import com.twentyhours.nabijam.data.AddressItem
+import com.twentyhours.nabijam.address.AddressItemNavigator
+import com.twentyhours.nabijam.address.AddressItemViewModel
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test

@@ -1,12 +1,12 @@
-package com.twentyhours.nabijam.viewmodel
+package com.twentyhours.nabijam.address
 
 import android.databinding.BaseObservable
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
 import android.databinding.ObservableList
-import com.twentyhours.nabijam.model.AddressItem
-import com.twentyhours.nabijam.navigator.AddressNavigator
-import com.twentyhours.nabijam.repository.AddressRepository
+import com.twentyhours.nabijam.data.AddressItem
+import com.twentyhours.nabijam.address.AddressNavigator
+import com.twentyhours.nabijam.data.AddressRepository
 import com.twentyhours.njbm.core.AddressGenerator
 
 /**

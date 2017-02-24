@@ -1,8 +1,8 @@
-package com.twentyhours.nabijam.viewmodel
+package com.twentyhours.nabijam.address
 
-import com.twentyhours.nabijam.model.AddressItem
-import com.twentyhours.nabijam.navigator.AddressItemNavigator
-import com.twentyhours.nabijam.repository.AddressRepository
+import com.twentyhours.nabijam.data.AddressItem
+import com.twentyhours.nabijam.address.AddressItemNavigator
+import com.twentyhours.nabijam.data.AddressRepository
 
 /**
  * Created by soonhyung on 2/10/17.

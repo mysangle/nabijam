@@ -1,6 +1,6 @@
-package com.twentyhours.nabijam.repository
+package com.twentyhours.nabijam.data
 
-import com.twentyhours.nabijam.model.AddressItem
+import com.twentyhours.nabijam.data.AddressItem
 
 /**
  * Created by soonhyung on 2/18/17.

@@ -1,4 +1,4 @@
-package com.twentyhours.nabijam.model
+package com.twentyhours.nabijam.data
 
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
