@@ -1,7 +1,5 @@
 # Nabijam
 
-[![Travis CI Status](https://travis-ci.org/mysangle/nabijam.svg?branch=master)](https://travis-ci.org/mysangle/nabijam)
-
 Bitmessage client for Android
 
 # License
