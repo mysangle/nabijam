@@ -5,6 +5,7 @@ jdk:
 android:
   components:
     - tools
+    - tools
     - platform-tools
     - build-tools-25.0.0
     - android-25
@@ -18,4 +19,13 @@ before_install:
 
 script:
   - ./gradlew build connectedCheck
+
+env:
+  global:
+    - ADB_INSTALL_TIMEOUT=8
+
+notifications:
+  email: false
+
+sudo: false
 
