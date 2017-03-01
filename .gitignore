@@ -44,3 +44,5 @@ captures/
 # Mac
 .DS_Store
 
+# facebook infer
+infer-out/
