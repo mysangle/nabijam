@@ -6,8 +6,8 @@ def versionBuild = 0
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 apply plugin: 'realm-android'
 
 def isCi = 'true'.equals(System.getenv('CI'))
@@ -69,7 +69,7 @@ android {
         textReport true
         textOutput 'stdout'
 //        fatal 'UnusedResources'
-        abortOnError false
+//        abortOnError false
     }
 
     sourceSets {
