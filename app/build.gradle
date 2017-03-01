@@ -27,7 +27,6 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.twentyhours.nabijam"
         minSdkVersion 16
         targetSdkVersion 25
         versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
