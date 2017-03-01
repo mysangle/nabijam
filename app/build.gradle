@@ -1,3 +1,9 @@
+// Manifest version information!
+def versionMajor = 0
+def versionMinor = 1
+def versionPatch = 0
+def versionBuild = 0
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
@@ -23,8 +29,8 @@ android {
         applicationId "com.twentyhours.nabijam"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 1
-        versionName "0.1.0"
+        versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
         signingConfig signingConfigs.nabijam
         multiDexEnabled = true
     }
@@ -63,6 +69,7 @@ android {
         textReport true
         textOutput 'stdout'
 //        fatal 'UnusedResources'
+        abortOnError false
     }
 
     sourceSets {
