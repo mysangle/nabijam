@@ -9,23 +9,36 @@ def preDexEnabled = 'true'.equals(System.getProperty('pre-dex', 'true'))
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.0"
+
+    signingConfigs {
+        nabijam {
+            storeFile file('nabijam.keystore')
+            storePassword 'android'
+            keyAlias 'android'
+            keyPassword 'android'
+        }
+    }
+
     defaultConfig {
         applicationId "com.twentyhours.nabijam"
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
         versionName "0.1.0"
+        signingConfig signingConfigs.nabijam
         multiDexEnabled = true
     }
+
     dexOptions {
         maxProcessCount 4 // this is the default value
-        javaMaxHeapSize "2g"
         // Skip pre-dexing when running on Travis CI or when disabled via -Dpre-dex=false.
         preDexLibraries = preDexEnabled && !isCi
     }
+
     dataBinding {
         enabled = true
     }
+
     productFlavors {
         production {
             applicationId "com.twentyhours.nabijam"
@@ -34,6 +47,7 @@ android {
             applicationId "com.twentyhours.nabijam.dev"
         }
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -44,6 +58,13 @@ android {
             versionNameSuffix '-DEBUG'
         }
     }
+
+    lintOptions {
+        textReport true
+        textOutput 'stdout'
+//        fatal 'UnusedResources'
+    }
+
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
         sourceSets {
